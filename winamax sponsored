@@ -32,7 +32,7 @@ class Solution {
         }
         
         int gameRounds = 0;
-        
+        //** so far I think everything is fine.
         while(true){
             if(player1.size() == 0){
                 System.out.println("2 "+gameRounds);
@@ -42,68 +42,67 @@ class Solution {
                 System.out.println("1 "+gameRounds);
                 break;
             }
+            //** so far so good i think
             String p1card = player1.get(0);String p2card = player2.get(0);
-            //remove first char from each string
-            String p1key = p1card.substring(0,1);String p2key = p2card.substring(0,1);
-            int p1value = faceValues.get(p1key);player1.remove(0);//player1.remove(p1key,p1value);//syntax is player1.remove(arrayindex)
-            //player1.indexOf();player2.indexOf();
+            //So we pull the top card from player1 and player2
+            String p1key = p1card.substring(0,p1card.length()-1);
+            String p2key = p2card.substring(0,p2card.length()-1);
+            //^ this pulls the number but not the suit from the card
+            int p1value = faceValues.get(p1key);player1.remove(0);
             int p2value = faceValues.get(p2key);player2.remove(0);
-            
-            String add1=p1key+p1value;
-            String add2=p2key+p2value;
+            //^^^^okay so I think its saying there's no card to remove here.
+            String add1=p1key+p1value;String add2=p2key+p2value;
             
             if(p1value > p2value){
                 //add to p1 deck, p1 then p2
-                player1.add(add1);player1.add(add2);
-                gameRounds++;
-                continue;//should break out of this game round, rather than out all together, maybe i need continue
+                player1.add(add1);player1.add(add2);gameRounds++;continue;//should break out of this game round, rather than out all together, maybe i need continue
             }
             if(p1value < p2value){
                 //p1value < p2value
-                player2.add(add1);player2.add(add2);
-                gameRounds++;
-                continue;
+                player2.add(add1);player2.add(add2);gameRounds++;continue;
             }
+            
             while(true){
                 //this is for WAR rounds
+                System.err.println("do i get in here?");//oh wow i never get inside this loop.
                 if(p1value != p2value){
                     break;//and then it'll go back to the top    
                 }
                 else{
                     //alright here the cards match, need to pull 3+1//resolve war!
                     //need to check to make sure each player has cards
-                    gameRounds++;
-                    if(player1.size() == 0 || player2.size() == 0){
-                        System.out.println("PAT "+gameRounds);
-                        break;
-                    }
-                    
-                    String p1war1 = player1.get(0);String p1keywar1 = p1war1.substring(0,1);int p1valuewar1 = faceValues.get(p1keywar1);player1.remove(0);
-                    String p2war1 = player2.get(0);String p2keywar1 = p2war1.substring(0,1);int p2valuewar1 = faceValues.get(p2keywar1);player2.remove(0);
                     
                     if(player1.size() == 0 || player2.size() == 0){
-                        System.out.println("PAT "+gameRounds);
-                        break;
+                        gameRounds++;System.out.println("PAT "+gameRounds);break;
                     }
                     
-                    String p1war2 = player1.get(0);String p1keywar2 = p1war2.substring(0,1);int p1valuewar2 = faceValues.get(p1keywar2);player1.remove(0);
-                    String p2war2 = player2.get(0);String p2keywar2 = p2war2.substring(0,1);int p2valuewar2 = faceValues.get(p2keywar2);player2.remove(0);
+                    String p1war1 = player1.get(0);String p1keywar1 = p1war1.substring(0,p1war1.length()-1);int p1valuewar1 = faceValues.get(p1keywar1);player1.remove(0);
+                    String p2war1 = player2.get(0);String p2keywar1 = p2war1.substring(0,p2war1.length()-1);int p2valuewar1 = faceValues.get(p2keywar1);player2.remove(0);
+                    //just gonna make the below a method i guess
                     
                     if(player1.size() == 0 || player2.size() == 0){
-                        System.out.println("PAT "+gameRounds);
-                        break;
+                        gameRounds++;
+                        System.out.println("PAT "+gameRounds);break;
                     }
                     
-                    String p1war3 = player1.get(0);String p1keywar3 = p1war3.substring(0,1);int p1valuewar3 = faceValues.get(p1keywar3);player1.remove(0);
-                    String p2war3 = player2.get(0);String p2keywar3 = p2war3.substring(0,1);int p2valuewar3 = faceValues.get(p2keywar3);player2.remove(0);
+                    String p1war2 = player1.get(0);String p1keywar2 = p1war2.substring(0,p1war2.length()-1);int p1valuewar2 = faceValues.get(p1keywar2);player1.remove(0);
+                    String p2war2 = player2.get(0);String p2keywar2 = p2war2.substring(0,p2war2.length()-1);int p2valuewar2 = faceValues.get(p2keywar2);player2.remove(0);
                     
                     if(player1.size() == 0 || player2.size() == 0){
-                        System.out.println("PAT "+gameRounds);
-                        break;
+                        gameRounds++;
+                        System.out.println("PAT "+gameRounds);break;
                     }
                     
-                    String p1war4 = player1.get(0);String p1keywar4 = p1war4.substring(0,1);int p1valuewar4 = faceValues.get(p1keywar4);player1.remove(0);
-                    String p2war4 = player2.get(0);String p2keywar4 = p2war4.substring(0,1);int p2valuewar4 = faceValues.get(p2keywar4);player2.remove(0);
+                    String p1war3 = player1.get(0);String p1keywar3 = p1war3.substring(0,p1war3.length()-1);int p1valuewar3 = faceValues.get(p1keywar3);player1.remove(0);
+                    String p2war3 = player2.get(0);String p2keywar3 = p2war3.substring(0,p2war3.length()-1);int p2valuewar3 = faceValues.get(p2keywar3);player2.remove(0);
+                    
+                    if(player1.size() == 0 || player2.size() == 0){
+                        gameRounds++;
+                        System.out.println("PAT "+gameRounds);break;
+                    }
+                    
+                    String p1war4 = player1.get(0);String p1keywar4 = p1war4.substring(0,p1war4.length()-1);int p1valuewar4 = faceValues.get(p1keywar4);player1.remove(0);
+                    String p2war4 = player2.get(0);String p2keywar4 = p2war4.substring(0,p2war4.length()-1);int p2valuewar4 = faceValues.get(p2keywar4);player2.remove(0);
                     
                     String add1war1 = p1keywar1+p1valuewar1;String add1war2 = p1keywar2+p1valuewar2;String add1war3 = p1keywar3+p1valuewar3;String add1war4 = p1keywar4+p1valuewar4;
                     String add2war1 = p2keywar1+p2valuewar1;String add2war2 = p2keywar2+p2valuewar2;String add2war3 = p2keywar3+p2valuewar3;String add2war4 = p2keywar4+p2valuewar4;
@@ -116,25 +115,18 @@ class Solution {
                     }
                     else{
                         if(p1valuewar4 > p2valuewar4){
-                            player1.addAll(war);//i think this works
-                            break;
+                            gameRounds++;player1.addAll(war);break;//i think this works
                         }
                         if(p1valuewar4 < p2valuewar4){
-                            player2.addAll(war);//i think this works
-                            break;
+                            gameRounds++;player2.addAll(war);break;//i think this works
                         }
                         break;
                     }
                     //alright all 4 cards pulled, now check to see who wins
                 }
-                //pull next card
-                //need to check at the end to see if one of the players doesn't have any cards left
                 //this is the end of the WAR loop below
             }
             continue;//continues original while loop for main game
-            //int p1value = faceValues.getValue(p1value);//this doesn't workkkk, have to cycle through the hashmap
-            //int p2value = faceValues.getValue(p2value);
-            //break;
         }
         
         //System.out.println("PAT");//"if players are equally first, PAT, otherwise the player number followed by the number of rounds
